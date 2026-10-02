@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <base target="_top">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>ระบบบันทึกการปฏิบัติงาน อบต.ท่าก๊อ</title>
+  
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Tom Select CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.bootstrap5.min.css" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- Google Font Sarabun & Plus Jakarta Sans -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-slate: #f8fafc;
+      --surface-white: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --primary-emerald: #059669;
+      --primary-hover: #047857;
+      --primary-light: #ecfdf5;
+      --indigo-accent: #4f46e5;
+      --border-color: #e2e8f0;
+      --radius-lg: 16px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.04);
+    }
+
+    body {
+      background-color: var(--bg-slate);
+      color: var(--text-main);
+      font-family: 'Sarabun', 'Plus Jakarta Sans', sans-serif;
+      padding-bottom: 50px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Floating SaaS Header Card */
+    .header-hero-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 24px 20px;
+      box-shadow: var(--shadow-md);
+      margin-top: 20px;
+      margin-bottom: 24px;
+    }
+
+    /* Tab Controller */
+    .nav-pills-modern {
+      background: #f1f5f9;
+      padding: 5px;
+      border-radius: 14px;
+      gap: 4px;
+    }
+    .nav-pills-modern .nav-link {
+      color: var(--text-muted);
+      font-weight: 600;
+      border-radius: 10px;
+      padding: 10px 20px;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .nav-pills-modern .nav-link.active {
+      background-color: var(--surface-white);
+      color: var(--primary-emerald);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+
+    /* Modern Card System */
+    .card-modern {
+      background: var(--surface-white);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    /* Section Divider Headers */
+    .form-section-title {
+      font-weight: 700;
+      color: var(--text-main);
+      font-size: 1.05rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .form-section-title .icon-box {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: var(--primary-light);
+      color: var(--primary-emerald);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Drag and Drop Box UI */
+    .drop-zone-modern {
+      border: 2px dashed #cbd5e1;
+      border-radius: 14px;
+      padding: 28px;
+      text-align: center;
+      background: #f8fafc;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .drop-zone-modern:hover {
+      border-color: var(--primary-emerald);
+      background: var(--primary-light);
+    }
+
+    /* Dynamic Tag Pills Filters */
+    .tag-pills-scroll {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      scrollbar-width: none;
+    }
+    .tag-pill-item {
+      background: #f1f5f9;
+      color: #475569;
+      padding: 7px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      white-space: nowrap;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.2s;
+    }
+    .tag-pill-item.active {
+      background: var(--primary-emerald);
+      color: white;
+      box-shadow: 0 2px 8px rgba(5, 150, 105, 0.25);
+    }
+
+    /* Elevated Report Item Cards */
+    .report-card-item {
+      position: relative;
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 12px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+    .report-card-item::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: var(--primary-emerald);
+    }
+    .report-card-item.dept-ช่าง::before { background: #f59e0b; }
+    .report-card-item.dept-คลัง::before { background: #3b82f6; }
+    .report-card-item.dept-ศึกษา::before { background: #ec4899; }
+
+    /* Department Badges */
+    .badge-dept-styled {
+      background: #f1f5f9;
+      color: #334155;
+      font-weight: 600;
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+    }
+
+    /* Stacked Image Avatars for Preview */
+    .image-avatar-group {
+      display: flex;
+      align-items: center;
+    }
+    .image-avatar-group img {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      object-fit: cover;
+      border: 2px solid #ffffff;
+      margin-left: -12px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .image-avatar-group img:first-child {
+      margin-left: 0;
+    }
+
+    /* Drawer Modal Style */
+    .drawer-modal-content {
+      border-radius: 20px;
+      border: none;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container" style="max-width: 860px;">
+    
+    <!-- Hero Floating Header -->
+    <div class="header-hero-card d-flex align-items-center justify-content-between flex-wrap gap-3">
+      <div>
+        <div class="d-flex align-items-center gap-2 mb-1">
+          <span class="badge bg-success bg-opacity-10 text-success fw-bold px-2 py-1 rounded">v2.0 Modern Edition</span>
+          <span class="text-muted small">อบต.ท่าก๊อ</span>
+        </div>
+        <h3 class="fw-bold mb-0 text-slate-900" style="letter-spacing: -0.02em;">ระบบบันทึกการปฏิบัติงาน</h3>
+      </div>
+      <div class="d-flex align-items-center gap-2">
+        <div class="text-end d-none d-sm-block">
+          <div class="fw-bold small text-dark">เทศบาล/อบต.ท่าก๊อ</div>
+          <div class="text-muted small">อ.แม่สรวย จ.เชียงราย</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab Switcher -->
+    <ul class="nav nav-pills nav-pills-modern nav-justified mb-4" id="mainTab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="form-tab" data-bs-toggle="pill" data-bs-target="#form-pane" type="button"><i class="fa-solid fa-square-plus me-2"></i>บันทึกงานใหม่</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="list-tab" data-bs-toggle="pill" data-bs-target="#list-pane" type="button" onclick="loadReportData()"><i class="fa-solid fa-layer-group me-2"></i>รายการรายงาน</button>
+      </li>
+    </ul>
+
+    <div class="tab-content" id="mainTabContent">
+      
+      <!-- TAB 1: MODERN INPUT FORM -->
+      <div class="tab-pane fade show active" id="form-pane" role="tabpanel">
+        <div class="card card-modern p-3 p-md-4">
+          <form id="workForm">
+            <input type="hidden" id="rowIndex" value="">
+            <input type="hidden" id="existingFolderUrl" value="">
+            <input type="hidden" id="existingImageUrls" value="">
+
+            <!-- Personnel Section -->
+            <div class="form-section-title">
+              <div class="icon-box"><i class="fa-solid fa-user-gear"></i></div>
+              <span>ข้อมูลผู้ปฏิบัติงาน</span>
+            </div>
+            
+            <div class="mb-3">
+              <label class="form-label fw-bold text-slate-800">เลือก ชื่อ - นามสกุล <span class="text-danger">*</span></label>
+              <select id="staffSelect" required placeholder="-- พิมพ์ค้นหา ชื่อ - นามสกุล --">
+                <option value="">-- กำลังโหลดรายชื่อ... --</option>
+              </select>
+            </div>
+            <div class="row g-2 g-md-3 mb-4">
+              <div class="col-md-6">
+                <label class="form-label text-muted small">สังกัด / กอง</label>
+                <input type="text" class="form-control bg-light border-0 fw-semibold" id="department" readonly placeholder="ดึงให้อัตโนมัติ">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label text-muted small">ตำแหน่ง</label>
+                <input type="text" class="form-control bg-light border-0 fw-semibold" id="position" readonly placeholder="ดึงให้อัตโนมัติ">
+              </div>
+            </div>
+
+            <!-- Task Details Section -->
+            <div class="form-section-title">
+              <div class="icon-box"><i class="fa-solid fa-list-check"></i></div>
+              <span>รายละเอียดการปฏิบัติงาน</span>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label fw-bold text-slate-800">วันที่และเวลาปฏิบัติงาน <span class="text-danger">*</span></label>
+              <input type="datetime-local" class="form-control" id="workDate" required>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label fw-bold text-slate-800">งานที่ดำเนินการ <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="title" required placeholder="เช่น ลงพื้นที่ตรวจสอบแนวเขตถนน">
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label fw-bold text-slate-800">สถานที่ปฏิบัติงาน <span class="text-danger">*</span></label>
+              
+              <div class="d-flex gap-4 mb-2">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="locationType" id="locInArea" value="in" checked>
+                  <label class="form-check-label fw-semibold" for="locInArea">
+                    พื้นที่ตำบลท่าก๊อ
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="locationType" id="locOutArea" value="out">
+                  <label class="form-check-label fw-semibold" for="locOutArea">
+                    นอกพื้นที่
+                  </label>
+                </div>
+              </div>
+
+              <div id="inAreaBox" class="p-3 bg-light rounded-3 border">
+                <div class="row g-2 align-items-center">
+                  <div class="col-md-5">
+                    <label class="form-label small text-muted">เลือกสถานที่:</label>
+                    <select class="form-select" id="mooSelect">
+                      <option value="">-- เลือกสถานที่ --</option>
+                    </select>
+                  </div>
+                  <div class="col-md-7">
+                    <label class="form-label small text-muted">ชื่อสถานที่/หมู่บ้าน:</label>
+                    <input type="text" class="form-control fw-bold text-success" id="mooNameDisplay" readonly placeholder="จะแสดงอัตโนมัติเมื่อเลือก">
+                  </div>
+                </div>
+              </div>
+
+              <div id="outAreaBox" class="mt-2" style="display: none;">
+                <input type="text" class="form-control" id="customLocation" placeholder="ระบุชื่อสถานที่ / ต่างจังหวัด ฯลฯ">
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label fw-bold text-slate-800">รายละเอียดการดำเนินงาน <span class="text-danger">*</span></label>
+              <textarea class="form-control" id="details" rows="3" required placeholder="อธิบายขั้นตอนการทำงาน หรือผลการปฏิบัติงาน..."></textarea>
+            </div>
+
+            <!-- Upload Section -->
+            <div class="form-section-title">
+              <div class="icon-box"><i class="fa-solid fa-photo-film"></i></div>
+              <span>แนบรูปภาพประกอบ</span>
+            </div>
+            
+            <div class="mb-3">
+              <div class="drop-zone-modern" onclick="document.getElementById('imageFiles').click()">
+                <i class="fa-solid fa-cloud-arrow-up fa-2x text-emerald-600 mb-2"></i>
+                <div class="fw-bold text-dark">คลิกเพื่อเลือกรูปภาพ หรือลากไฟล์มาวางที่นี่</div>
+                <div class="text-muted small">เลือกกี่รูปก็ได้ (ไม่จำกัดจำนวน)</div>
+                <input type="file" id="imageFiles" accept="image/*" multiple style="display: none;">
+              </div>
+              <div class="d-flex flex-wrap gap-2 mt-3" id="previewGrid"></div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div id="createActionBtns" class="row g-2 mt-4">
+              <div class="col-md-6">
+                <button type="button" class="btn btn-outline-dark w-100 py-3 fw-bold rounded-3" onclick="submitFormWithAction(false)">
+                  <i class="fa-solid fa-floppy-disk me-2"></i>บันทึกในระบบอย่างเดียว
+                </button>
+              </div>
+              <div class="col-md-6">
+                <button type="button" class="btn btn-success w-100 py-3 fw-bold rounded-3" style="background-color: var(--primary-emerald);" onclick="submitFormWithAction(true)">
+                  <i class="fa-solid fa-paper-plane me-2"></i>บันทึกและส่ง LINE
+                </button>
+              </div>
+            </div>
+
+            <div id="editActionBtns" class="mt-4" style="display: none;">
+              <button type="button" class="btn btn-warning w-100 py-3 fw-bold text-dark rounded-3" onclick="submitFormWithAction(false)">
+                <i class="fa-solid fa-pen-to-square me-2"></i>บันทึกการแก้ไขข้อมูล
+              </button>
+              <button type="button" class="btn btn-secondary w-100 py-2 mt-2 rounded-3" id="cancelEditBtn" onclick="resetForm()">ยกเลิกการแก้ไข</button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+
+      <!-- TAB 2: MODERN FEED & SEARCH -->
+      <div class="tab-pane fade" id="list-pane" role="tabpanel">
+        
+        <!-- Search Controls -->
+        <div class="card card-modern p-3 mb-3">
+          <div class="input-group mb-2">
+            <span class="input-group-text bg-white border-end-0 text-muted"><i class="fa-solid fa-magnifying-glass"></i></span>
+            <input type="text" class="form-control border-start-0 ps-0" id="searchInput" placeholder="พิมพ์เพื่อค้นหาชื่อ, งาน, สถานที่..." onkeyup="filterReports()">
+            <button class="btn btn-outline-secondary" onclick="loadReportData()"><i class="fa-solid fa-rotate-right me-1"></i>รีเฟรช</button>
+          </div>
+
+          <!-- Category Filter Pills -->
+          <div class="tag-pills-scroll">
+            <span class="tag-pill-item active" onclick="filterByDept('ทั้งหมด', this)">ทั้งหมด</span>
+            <span class="tag-pill-item" onclick="filterByDept('สำนักปลัด', this)">สำนักปลัด</span>
+            <span class="tag-pill-item" onclick="filterByDept('กองช่าง', this)">กองช่าง</span>
+            <span class="tag-pill-item" onclick="filterByDept('กองคลัง', this)">กองคลัง</span>
+            <span class="tag-pill-item" onclick="filterByDept('กองการศึกษา', this)">กองการศึกษาฯ</span>
+            <span class="tag-pill-item" onclick="filterByDept('ผู้บริหาร', this)">ผู้บริหาร</span>
+          </div>
+        </div>
+
+        <div id="loadingSpinner" class="text-center my-5" style="display:none;">
+          <div class="spinner-border text-success" role="status"></div>
+          <p class="mt-2 text-muted">กำลังโหลดข้อมูล...</p>
+        </div>
+
+        <div id="reportListContainer"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Drawer Modal Container -->
+  <div class="modal fade" id="detailModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content drawer-modal-content p-2">
+        <div class="modal-header border-bottom-0">
+          <h5 class="modal-title fw-bold text-dark"><i class="fa-solid fa-circle-info text-success me-2"></i>รายละเอียดรายงานงาน</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-3" id="modalDetailContent"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
+
+  <script>
+    // ================= WEB APP API ENDPOINT =================
+    const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxEhfgNo0F1uipOcVAuLDkGyaErCyTwVhdwJBfKJDXp0ffy7xh0LkixoDTGvatT5pIm/exec";
+    // ========================================================
+
+    const VILLAGE_DATABASE = {
+      "tao_ngo": "สำนักงาน อบต.ท่าก๊อ",
+      1: "บ้านดินดำ", 2: "บ้านป่าถ่อน", 3: "บ้านป่าลั่น", 4: "บ้านแม่ต่ำ",
+      5: "บ้านสบก๊อ", 6: "บ้านท่าก๊อพลับพลา", 7: "บ้านโฮ่ง", 8: "บ้านปางหลวง",
+      9: "บ้านปางน้ำฮ้าย", 10: "บ้านดอนชัย", 11: "บ้านแม่ผักแหละ", 12: "บ้านหล่ายลาว",
+      13: "บ้านสันมะแฟน", 14: "บ้านป่าเหียง", 15: "บ้านดอยงาม", 16: "บ้านห้วยน้ำขุ่น",
+      17: "บ้านห้วยชมภู", 18: "บ้านป่าเกี๊ยะ", 19: "บ้านบาตรา", 20: "บ้านผาต้าย",
+      21: "บ้านชัยมงคล", 22: "บ้านร่มโพธิ์ทอง", 23: "บ้านลอจอ", 24: "บ้านแม่ต่ำน้อย",
+      25: "บ้านพนาเสรี", 26: "บ้านใหม่สุขสันต์", 27: "บ้านดอนแก้ว", 28: "บ้านใหม่จะคะ"
+    };
+
+    let staffData = [];
+    let reportDataGlobal = [];
+    let staffTomSelect = null;
+    let selectedFiles = [];
+
+    window.onload = function() {
+      fetchStaffList();
+      initVillageDropdown();
+      setDefaultDateTime();
+      setupFileInput();
+    };
+
+    function fetchStaffList() {
+      fetch(`${GAS_WEB_APP_URL}?action=getStaffList`)
+        .then(res => res.json())
+        .then(res => {
+          if (res.success) {
+            populateStaffDropdown(res.data);
+          }
+        })
+        .catch(err => console.error("Error fetching staff list:", err));
+    }
+
+    function setDefaultDateTime() {
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = String(now.getMonth() + 1).padStart(2, '0');
+      const day = String(now.getDate()).padStart(2, '0');
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      document.getElementById('workDate').value = `${year}-${month}-${day}T${hours}:${minutes}`;
+    }
+
+    function populateStaffDropdown(data) {
+      staffData = data;
+      const select = document.getElementById('staffSelect');
+      select.innerHTML = '<option value="">-- พิมพ์ค้นหา ชื่อ - นามสกุล --</option>';
+      
+      data.forEach(staff => {
+        const option = document.createElement('option');
+        option.value = staff.id;
+        option.text = `${staff.id}. ${staff.name} (${staff.department})`;
+        select.appendChild(option);
+      });
+
+      if (staffTomSelect) staffTomSelect.destroy();
+
+      staffTomSelect = new TomSelect('#staffSelect', {
+        create: false,
+        sortField: { field: "text", order: "asc" },
+        placeholder: "-- พิมพ์ค้นหา ชื่อ - นามสกุล --",
+        onChange: function(value) {
+          const selectedId = parseInt(value);
+          const staff = staffData.find(s => s.id === selectedId);
+          if (staff) {
+            document.getElementById('department').value = staff.department;
+            document.getElementById('position').value = staff.position;
+          } else {
+            document.getElementById('department').value = '';
+            document.getElementById('position').value = '';
+          }
+        }
+      });
+    }
+
+    function initVillageDropdown() {
+      const select = document.getElementById('mooSelect');
+      select.innerHTML = '<option value="">-- เลือกสถานที่ --</option>';
+      
+      const optOrg = document.createElement('option');
+      optOrg.value = "tao_ngo";
+      optOrg.text = "สำนักงาน อบต.ท่าก๊อ";
+      select.appendChild(optOrg);
+
+      for (let i = 1; i <= 28; i++) {
+        const opt = document.createElement('option');
+        opt.value = i;
+        opt.text = `หมู่ที่ ${i}`;
+        select.appendChild(opt);
+      }
+    }
+
+    document.getElementById('mooSelect').addEventListener('change', function() {
+      const mooVal = this.value;
+      const displayInput = document.getElementById('mooNameDisplay');
+      if (mooVal && VILLAGE_DATABASE[mooVal]) {
+        if (mooVal === "tao_ngo") {
+          displayInput.value = VILLAGE_DATABASE[mooVal];
+        } else {
+          displayInput.value = `หมู่ที่ ${mooVal} ${VILLAGE_DATABASE[mooVal]}`;
+        }
+      } else {
+        displayInput.value = '';
+      }
+    });
+
+    document.querySelectorAll('input[name="locationType"]').forEach(radio => {
+      radio.addEventListener('change', function() {
+        if (this.value === 'in') {
+          document.getElementById('inAreaBox').style.display = 'block';
+          document.getElementById('outAreaBox').style.display = 'none';
+        } else {
+          document.getElementById('inAreaBox').style.display = 'none';
+          document.getElementById('outAreaBox').style.display = 'block';
+        }
+      });
+    });
+
+    function setupFileInput() {
+      const fileInput = document.getElementById('imageFiles');
+      fileInput.addEventListener('change', function() {
+        for (let file of this.files) {
+          if (file.type.startsWith('image/')) {
+            selectedFiles.push(file);
+          }
+        }
+        renderPreviews();
+      });
+    }
+
+    function renderPreviews() {
+      const grid = document.getElementById('previewGrid');
+      grid.innerHTML = '';
+      selectedFiles.forEach((file, index) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const box = document.createElement('div');
+          box.className = 'position-relative';
+          box.innerHTML = `
+            <img src="${e.target.result}" class="rounded border" style="width:70px; height:70px; object-fit:cover;">
+            <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 p-0 rounded-circle" style="width:18px; height:18px; font-size:10px; transform: translate(30%, -30%);" onclick="removeFile(${index})">×</button>
+          `;
+          grid.appendChild(box);
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function removeFile(idx) {
+      selectedFiles.splice(idx, 1);
+      renderPreviews();
+    }
+
+    async function submitFormWithAction(shouldSendLine) {
+      const form = document.getElementById('workForm');
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      const isEdit = document.getElementById('rowIndex').value !== "";
+
+      let totalSize = 0;
+      for (let f of selectedFiles) { totalSize += f.size; }
+      if (totalSize > 15 * 1024 * 1024) {
+        Swal.fire('ขนาดไฟล์รวมใหญ่เกินไป', 'ขนาดไฟล์รวมกันต้องไม่เกิน 15 MB กรุณาลดจำนวนหรือขนาดรูปภาพ', 'warning');
+        return;
+      }
+
+      const selectedIdVal = staffTomSelect ? staffTomSelect.getValue() : document.getElementById('staffSelect').value;
+      if (!selectedIdVal) {
+        Swal.fire('กรุณาเลือกบุคลากร', 'โปรดเลือก ชื่อ - นามสกุล ผู้ปฏิบัติงาน', 'warning');
+        return;
+      }
+
+      const locType = document.querySelector('input[name="locationType"]:checked').value;
+      let finalLocation = "";
+
+      if (locType === 'in') {
+        const mooVal = document.getElementById('mooSelect').value;
+        if (!mooVal) {
+          Swal.fire('กรุณาเลือกสถานที่', 'โปรดเลือกสถานที่ปฏิบัติงานในตำบลท่าก๊อ', 'warning');
+          return;
+        }
+        finalLocation = `${document.getElementById('mooNameDisplay').value} ต.ท่าก๊อ`;
+      } else {
+        const customLoc = document.getElementById('customLocation').value.trim();
+        if (!customLoc) {
+          Swal.fire('กรุณาระบุสถานที่', 'โปรดพิมพ์ระบุสถานที่นอกพื้นที่', 'warning');
+          return;
+        }
+        finalLocation = customLoc;
+      }
+
+      const selectedId = parseInt(selectedIdVal);
+      const staff = staffData.find(s => s.id === selectedId);
+
+      let loadingTitle = 'กำลังบันทึกข้อมูล...';
+      if (isEdit) {
+        loadingTitle = 'กำลังอัปเดตข้อมูล...';
+      } else if (shouldSendLine) {
+        loadingTitle = 'กำลังบันทึกและส่ง LINE...';
+      }
+
+      Swal.fire({
+        title: loadingTitle,
+        text: 'โปรดรอสักครู่ ระบบกำลังประมวลผลข้อมูล',
+        allowOutsideClick: false,
+        didOpen: () => { Swal.showLoading(); }
+      });
+
+      let fileDataArray = [];
+      if (selectedFiles.length > 0) {
+        const filePromises = selectedFiles.map(file => {
+          return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve({ fileName: file.name, mimeType: file.type, base64: reader.result.split(',')[1] });
+            reader.onerror = error => reject(error);
+            reader.readAsDataURL(file);
+          });
+        });
+        fileDataArray = await Promise.all(filePromises);
+      }
+
+      const formData = {
+        rowIndex: document.getElementById('rowIndex').value,
+        existingFolderUrl: document.getElementById('existingFolderUrl').value,
+        existingImageUrls: document.getElementById('existingImageUrls').value ? document.getElementById('existingImageUrls').value.split(',') : [],
+        workDate: document.getElementById('workDate').value,
+        reporter: staff.name,
+        department: staff.department,
+        position: staff.position,
+        title: document.getElementById('title').value,
+        location: finalLocation,
+        details: document.getElementById('details').value,
+        sendLine: shouldSendLine,
+        files: fileDataArray
+      };
+
+      fetch(GAS_WEB_APP_URL, {
+        method: "POST",
+        body: JSON.stringify({ action: "processForm", formData: formData })
+      })
+      .then(res => res.json())
+      .then(response => {
+        if (response.success) {
+          if (response.isEdit) {
+            Swal.fire({
+              icon: 'success',
+              title: 'แก้ไขข้อมูลสำเร็จ!',
+              text: response.message,
+              confirmButtonColor: '#059669'
+            });
+            resetForm();
+            document.getElementById('list-tab').click();
+          } else {
+            Swal.fire({
+              icon: 'success',
+              title: 'บันทึกสำเร็จ!',
+              text: response.message,
+              showCancelButton: true,
+              confirmButtonColor: '#059669',
+              cancelButtonColor: '#6c757d',
+              confirmButtonText: '<i class="fa-solid fa-plus me-1"></i> บันทึกเพิ่ม',
+              cancelButtonText: '<i class="fa-solid fa-xmark me-1"></i> ปิด'
+            }).then((result) => {
+              resetForm();
+              if (!result.isConfirmed) {
+                document.getElementById('list-tab').click();
+              }
+            });
+          }
+        } else {
+          Swal.fire('เกิดข้อผิดพลาด', response.message, 'error');
+        }
+      })
+      .catch(err => {
+        Swal.fire('Error', err.toString(), 'error');
+      });
+    }
+
+    function resetForm() {
+      document.getElementById('workForm').reset();
+      if (staffTomSelect) staffTomSelect.clear();
+      selectedFiles = [];
+      document.getElementById('previewGrid').innerHTML = '';
+
+      setDefaultDateTime();
+      document.getElementById('rowIndex').value = '';
+      document.getElementById('existingFolderUrl').value = '';
+      document.getElementById('existingImageUrls').value = '';
+      document.getElementById('department').value = '';
+      document.getElementById('position').value = '';
+      document.getElementById('mooNameDisplay').value = '';
+      document.getElementById('inAreaBox').style.display = 'block';
+      document.getElementById('outAreaBox').style.display = 'none';
+      
+      document.getElementById('createActionBtns').style.display = 'flex';
+      document.getElementById('editActionBtns').style.display = 'none';
+    }
+
+    function loadReportData() {
+      document.getElementById('loadingSpinner').style.display = 'block';
+      document.getElementById('reportListContainer').innerHTML = '';
+      document.getElementById('searchInput').value = '';
+
+      fetch(`${GAS_WEB_APP_URL}?action=getReportData`)
+        .then(res => res.json())
+        .then(res => {
+          if (res.success) {
+            reportDataGlobal = res.data;
+            renderReportCards(res.data);
+          } else {
+            document.getElementById('loadingSpinner').style.display = 'none';
+            Swal.fire('Error', 'ไม่สามารถโหลดข้อมูลได้: ' + res.message, 'error');
+          }
+        })
+        .catch(err => {
+          document.getElementById('loadingSpinner').style.display = 'none';
+          Swal.fire('Error', 'ไม่สามารถโหลดข้อมูลได้: ' + err, 'error');
+        });
+    }
+
+    function filterByDept(deptKeyword, element) {
+      document.querySelectorAll('.tag-pill-item').forEach(el => el.classList.remove('active'));
+      element.classList.add('active');
+
+      if (deptKeyword === 'ทั้งหมด') {
+        renderReportCards(reportDataGlobal);
+        return;
+      }
+
+      const filtered = reportDataGlobal.filter(item => item.department.includes(deptKeyword));
+      renderReportCards(filtered);
+    }
+
+    function filterReports() {
+      const keyword = document.getElementById('searchInput').value.toLowerCase().trim();
+      if (!keyword) {
+        renderReportCards(reportDataGlobal);
+        return;
+      }
+
+      const filtered = reportDataGlobal.filter(item => {
+        return item.reporter.toLowerCase().includes(keyword) ||
+               item.title.toLowerCase().includes(keyword) ||
+               item.department.toLowerCase().includes(keyword) ||
+               item.position.toLowerCase().includes(keyword) ||
+               item.location.toLowerCase().includes(keyword) ||
+               item.details.toLowerCase().includes(keyword) ||
+               item.timestamp.toLowerCase().includes(keyword);
+      });
+
+      renderReportCards(filtered);
+    }
+
+    function renderReportCards(data) {
+      document.getElementById('loadingSpinner').style.display = 'none';
+      const container = document.getElementById('reportListContainer');
+
+      if (!data || data.length === 0) {
+        container.innerHTML = '<div class="text-center text-muted my-5 py-4"><i class="fa-solid fa-inbox fa-2x mb-2 text-slate-300"></i><br>ไม่พบข้อมูลรายการปฏิบัติงาน</div>';
+        return;
+      }
+
+      const grouped = {};
+      data.forEach(item => {
+        const dateKey = item.dateDisplay || "ไม่ระบุวันที่";
+        if (!grouped[dateKey]) grouped[dateKey] = [];
+        grouped[dateKey].push(item);
+      });
+
+      let html = '';
+      for (const [dateStr, items] of Object.entries(grouped)) {
+        html += `
+          <div class="d-flex align-items-center gap-2 mb-3 mt-4">
+            <span class="badge bg-dark text-white px-3 py-2 rounded-pill fw-bold"><i class="fa-regular fa-calendar-days me-1 text-emerald-400"></i> ${dateStr}</span>
+            <span class="text-muted small">(${items.length} รายการ)</span>
+          </div>
+        `;
+
+        items.forEach(item => {
+          const hasImage = item.directImageUrls && item.directImageUrls.length > 0;
+          
+          let imagesAvatarHtml = '';
+          if (hasImage) {
+            imagesAvatarHtml = '<div class="image-avatar-group">';
+            item.directImageUrls.slice(0, 3).forEach(url => {
+              imagesAvatarHtml += `<img src="${url}" onclick="viewDetail(${item.rowIndex})" style="cursor:pointer;">`;
+            });
+            if (item.directImageUrls.length > 3) {
+              imagesAvatarHtml += `<span class="badge bg-slate-200 text-dark ms-1 rounded-pill">+${item.directImageUrls.length - 3}</span>`;
+            }
+            imagesAvatarHtml += '</div>';
+          }
+
+          let deptClass = "dept-ทั่วไป";
+          if (item.department.includes("ช่าง")) deptClass = "dept-ช่าง";
+          if (item.department.includes("คลัง")) deptClass = "dept-คลัง";
+          if (item.department.includes("ศึกษา")) deptClass = "dept-ศึกษา";
+
+          const timeStr = item.timestamp.split(' ')[1] || item.timestamp;
+
+          html += `
+            <div class="report-card-item ${deptClass}">
+              <div class="d-flex align-items-start justify-content-between gap-2">
+                <div class="flex-grow-1">
+                  <div class="d-flex align-items-center gap-2 mb-1">
+                    <span class="badge-dept-styled">${item.department}</span>
+                    <span class="text-muted small"><i class="fa-regular fa-clock me-1"></i>${timeStr}</span>
+                  </div>
+                  
+                  <h6 class="fw-bold text-slate-900 mb-1" onclick="viewDetail(${item.rowIndex})" style="cursor:pointer;">
+                    ${item.title}
+                  </h6>
+
+                  <div class="d-flex align-items-center gap-3 text-muted small flex-wrap mt-2">
+                    <span class="text-slate-700 fw-semibold"><i class="fa-solid fa-user me-1 text-emerald-600"></i>${item.reporter}</span>
+                    <span class="text-slate-600"><i class="fa-solid fa-location-dot me-1 text-rose-500"></i>${item.location}</span>
+                  </div>
+                </div>
+
+                <div class="d-flex flex-column align-items-end gap-2 flex-shrink-0">
+                  ${imagesAvatarHtml}
+                  <div class="btn-group btn-group-sm">
+                    <button class="btn btn-light border" onclick="viewDetail(${item.rowIndex})" title="ดู"><i class="fa-solid fa-eye text-slate-600"></i></button>
+                    <button class="btn btn-light border" onclick="requestAdminAuth('edit', ${item.rowIndex})" title="แก้ไข"><i class="fa-solid fa-pen text-amber-600"></i></button>
+                    <button class="btn btn-light border" onclick="requestAdminAuth('delete', ${item.rowIndex})" title="ลบ"><i class="fa-solid fa-trash text-rose-600"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+        });
+      }
+
+      container.innerHTML = html;
+    }
+
+    function viewDetail(rowIndex) {
+      const item = reportDataGlobal.find(r => r.rowIndex === rowIndex);
+      if (!item) return;
+
+      let imagesHtml = '<span class="text-muted">ไม่มีรูปภาพแนบ</span>';
+      if (item.directImageUrls && item.directImageUrls.length > 0) {
+        imagesHtml = '<div class="row g-2 mt-2">';
+        item.directImageUrls.forEach((url) => {
+          imagesHtml += `
+            <div class="col-4 col-md-3">
+              <a href="${url}" target="_blank">
+                <img src="${url}" class="img-fluid rounded border" style="height: 84px; width: 100%; object-fit: cover;">
+              </a>
+            </div>`;
+        });
+        imagesHtml += '</div>';
+      }
+
+      const content = `
+        <h5 class="fw-bold text-dark mb-3">${item.title}</h5>
+        <div class="mb-2 text-dark"><strong><i class="fa-solid fa-user me-2 text-emerald-600"></i>ผู้ปฏิบัติงาน:</strong> ${item.reporter} (${item.position})</div>
+        <div class="mb-2 text-dark"><strong><i class="fa-solid fa-building me-2 text-slate-500"></i>สังกัด:</strong> ${item.department}</div>
+        <div class="mb-2 text-dark"><strong><i class="fa-solid fa-location-dot me-2 text-rose-500"></i>สถานที่:</strong> ${item.location}</div>
+        <div class="mb-2 text-dark"><strong><i class="fa-regular fa-clock me-2 text-indigo-500"></i>เวลาปฏิบัติงาน:</strong> ${item.timestamp}</div>
+        <hr class="my-3">
+        <div class="mb-3">
+          <strong class="text-dark"><i class="fa-solid fa-align-left me-2 text-slate-500"></i>รายละเอียดงาน:</strong>
+          <p class="mt-2 text-slate-700 bg-slate-50 p-3 rounded-3 border" style="white-space: pre-line;">${item.details}</p>
+        </div>
+        <div class="mb-3">
+          <strong class="text-dark"><i class="fa-solid fa-images me-2 text-emerald-600"></i>รูปภาพแนบ (${item.directImageUrls.length} รูป):</strong>
+          ${imagesHtml}
+        </div>
+        ${item.folderUrl ? `<a href="${item.folderUrl}" target="_blank" class="btn btn-success w-100 mt-2 py-2 fw-semibold" style="background-color: var(--primary-emerald);"><i class="fa-solid fa-folder-open me-2"></i>เปิดดูโฟลเดอร์ใน Google Drive</a>` : ''}
+      `;
+
+      document.getElementById('modalDetailContent').innerHTML = content;
+      const modal = new bootstrap.Modal(document.getElementById('detailModal'));
+      modal.show();
+    }
+
+    function requestAdminAuth(actionType, rowIndex) {
+      Swal.fire({
+        title: '<i class="fa-solid fa-lock text-warning me-2"></i>ยืนยันสิทธิ์แอดมิน',
+        text: 'กรุณากรอกรหัสผ่านผู้ดูแลระบบเพื่อดำเนินการต่อ',
+        input: 'password',
+        inputAttributes: {
+          autocapitalize: 'off',
+          placeholder: 'กรอก Admin Password...'
+        },
+        showCancelButton: true,
+        confirmButtonText: '<i class="fa-solid fa-key me-1"></i> ยืนยัน',
+        cancelButtonText: 'ยกเลิก',
+        confirmButtonColor: '#059669',
+        cancelButtonColor: '#6c757d',
+        showLoaderOnConfirm: true,
+        preConfirm: (password) => {
+          if (!password) {
+            Swal.showValidationMessage('กรุณากรอกรหัสผ่าน');
+            return false;
+          }
+          return fetch(GAS_WEB_APP_URL, {
+            method: "POST",
+            body: JSON.stringify({ action: "verifyAdminPassword", password: password })
+          })
+          .then(res => res.json())
+          .then(res => {
+            if (res.success && res.isValid) {
+              return password;
+            } else {
+              Swal.showValidationMessage('รหัสผ่านแอดมินไม่ถูกต้อง!');
+              return false;
+            }
+          })
+          .catch(() => {
+            Swal.showValidationMessage('เกิดข้อผิดพลาดในการตรวจสอบรหัสผ่าน');
+            return false;
+          });
+        },
+        allowOutsideClick: () => !Swal.isLoading()
+      }).then((result) => {
+        if (result.isConfirmed && result.value) {
+          if (actionType === 'edit') {
+            editRecord(rowIndex);
+          } else if (actionType === 'delete') {
+            confirmDelete(rowIndex, result.value);
+          }
+        }
+      });
+    }
+
+    function editRecord(rowIndex) {
+      const item = reportDataGlobal.find(r => r.rowIndex === rowIndex);
+      if (!item) return;
+
+      document.getElementById('form-tab').click();
+
+      document.getElementById('rowIndex').value = item.rowIndex;
+      document.getElementById('existingFolderUrl').value = item.folderUrl;
+      document.getElementById('existingImageUrls').value = item.directImageUrls.join(',');
+
+      if (item.rawDateIso) {
+        document.getElementById('workDate').value = item.rawDateIso;
+      }
+
+      const staff = staffData.find(s => s.name === item.reporter);
+      if (staff) {
+        if (staffTomSelect) {
+          staffTomSelect.setValue(staff.id);
+        } else {
+          document.getElementById('staffSelect').value = staff.id;
+        }
+        document.getElementById('department').value = staff.department;
+        document.getElementById('position').value = staff.position;
+      }
+
+      document.getElementById('title').value = item.title;
+      document.getElementById('details').value = item.details;
+
+      if (item.location.includes("ต.ท่าก๊อ")) {
+        document.getElementById('locInArea').checked = true;
+        document.getElementById('inAreaBox').style.display = 'block';
+        document.getElementById('outAreaBox').style.display = 'none';
+
+        if (item.location.includes("สำนักงาน อบต.ท่าก๊อ")) {
+          document.getElementById('mooSelect').value = "tao_ngo";
+          document.getElementById('mooNameDisplay').value = "สำนักงาน อบต.ท่าก๊อ";
+        } else {
+          const match = item.location.match(/หมู่ที่\s*(\d+)/);
+          if (match && match[1]) {
+            const mooNum = match[1];
+            document.getElementById('mooSelect').value = mooNum;
+            document.getElementById('mooNameDisplay').value = `หมู่ที่ ${mooNum} ${VILLAGE_DATABASE[mooNum] || ''}`;
+          }
+        }
+      } else {
+        document.getElementById('locOutArea').checked = true;
+        document.getElementById('inAreaBox').style.display = 'none';
+        document.getElementById('outAreaBox').style.display = 'block';
+        document.getElementById('customLocation').value = item.location;
+      }
+
+      document.getElementById('createActionBtns').style.display = 'none';
+      document.getElementById('editActionBtns').style.display = 'block';
+    }
+
+    function confirmDelete(rowIndex, adminPass) {
+      Swal.fire({
+        title: 'ยืนยันการลบข้อมูล?',
+        text: "เมื่อลบแล้วจะไม่สามารถย้อนกลับได้",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#ef4444',
+        cancelButtonColor: '#6c757d',
+        confirmButtonText: 'ใช่, ลบเลย!',
+        cancelButtonText: 'ยกเลิก'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire({ title: 'กำลังลบข้อมูล...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
+
+          fetch(GAS_WEB_APP_URL, {
+            method: "POST",
+            body: JSON.stringify({ action: "deleteRecord", rowIndex: rowIndex, adminPassword: adminPass })
+          })
+          .then(res => res.json())
+          .then(res => {
+            if (res.success) {
+              Swal.fire('ลบสำเร็จ!', res.message, 'success');
+              loadReportData();
+            } else {
+              Swal.fire('เกิดข้อผิดพลาด', res.message, 'error');
+            }
+          })
+          .catch(err => {
+            Swal.fire('Error', err.toString(), 'error');
+          });
+        }
+      });
+    }
+  </script>
+</body>
+</html>
