@@ -505,7 +505,6 @@
       setupFileInput();
     };
 
-    // Safe Fetch: ป้องกันการพังจาก HTML Response
     function fetchStaffList() {
       fetch(`${GAS_WEB_APP_URL}?action=getStaffList`, {
         method: "GET",
@@ -751,10 +750,13 @@
         }
       }
 
+      const rawExistingUrls = document.getElementById('existingImageUrls').value;
+      const existingUrlsArray = rawExistingUrls ? rawExistingUrls.split(',') : [];
+
       const formData = {
         rowIndex: document.getElementById('rowIndex').value,
         existingFolderUrl: document.getElementById('existingFolderUrl').value,
-        existingImageUrls: document.getElementById('existingImageUrls').value ? document.getElementById('existingImageUrls').value.split(',') : [],
+        existingImageUrls: existingUrlsArray,
         workDate: document.getElementById('workDate').value,
         reporter: staff.name,
         department: staff.department,
@@ -788,9 +790,10 @@
             resetForm();
             document.getElementById('list-tab').click();
           } else {
+            const iconType = response.sendLine === false && shouldSendLine ? 'warning' : 'success';
             Swal.fire({
-              icon: 'success',
-              title: 'บันทึกสำเร็จ!',
+              icon: iconType,
+              title: response.sendLine === false && shouldSendLine ? 'บันทึกสำเร็จ (LINE ไม่เด้ง)' : 'บันทึกสำเร็จ!',
               text: response.message,
               showCancelButton: true,
               confirmButtonColor: '#059669',
@@ -833,7 +836,6 @@
       document.getElementById('editActionBtns').style.display = 'none';
     }
 
-    // Safe Fetch สำหรับการโหลดรายการรายงาน
     function loadReportData() {
       document.getElementById('loadingSpinner').style.display = 'block';
       document.getElementById('reportListContainer').innerHTML = '';
