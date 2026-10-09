@@ -43,7 +43,6 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* Hero Glassmorphic Gradient Header Card */
     .header-hero-card {
       background: linear-gradient(135deg, #059669 0%, #0d9488 100%);
       border-radius: 24px;
@@ -69,7 +68,6 @@
       pointer-events: none;
     }
 
-    /* Modern Tab Switcher */
     .nav-pills-modern {
       background: #e2e8f0;
       padding: 6px;
@@ -89,7 +87,6 @@
       box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
     }
 
-    /* Modern Card System */
     .card-modern {
       background: var(--surface-white);
       border: 1px solid var(--border-color);
@@ -98,13 +95,11 @@
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
-    /* Form Focus Effect Aura */
     .form-control:focus, .form-select:focus {
       border-color: var(--primary-emerald);
       box-shadow: 0 0 0 4px var(--accent-glow);
     }
 
-    /* Section Title Badges */
     .form-section-title {
       font-weight: 700;
       color: var(--text-main);
@@ -126,7 +121,6 @@
       box-shadow: inset 0 0 0 1px rgba(5, 150, 105, 0.15);
     }
 
-    /* Interactive Drop Zone UI */
     .drop-zone-modern {
       border: 2px dashed #94a3b8;
       border-radius: 16px;
@@ -142,7 +136,6 @@
       transform: translateY(-2px);
     }
 
-    /* Vibrant Tag Pills Filters */
     .tag-pills-scroll {
       display: flex;
       gap: 8px;
@@ -171,7 +164,6 @@
       box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
     }
 
-    /* Elevated Interactive Report Cards */
     .report-card-item {
       position: relative;
       background: #ffffff;
@@ -201,7 +193,6 @@
     .report-card-item.dept-ศึกษา::before { background: #ec4899; }
     .report-card-item.dept-ผู้บริหาร::before { background: #8b5cf6; }
 
-    /* Department Badges */
     .badge-dept-styled {
       background: #f1f5f9;
       color: #1e293b;
@@ -212,7 +203,6 @@
       border: 1px solid var(--border-color);
     }
 
-    /* Stacked Image Avatars for Preview */
     .image-avatar-group {
       display: flex;
       align-items: center;
@@ -231,10 +221,10 @@
       margin-left: 0;
     }
     .image-avatar-group img:hover {
-      transform: scale(1.15) z-index 10;
+      transform: scale(1.15);
+      z-index: 10;
     }
 
-    /* Buttons Style */
     .btn-gradient-emerald {
       background: linear-gradient(135deg, #059669 0%, #0d9488 100%);
       color: white;
@@ -249,7 +239,6 @@
       transform: translateY(-1px);
     }
 
-    /* Drawer Modal Style */
     .drawer-modal-content {
       border-radius: 24px;
       border: none;
@@ -389,14 +378,14 @@
             <!-- Upload Section -->
             <div class="form-section-title">
               <div class="icon-box"><i class="fa-solid fa-photo-film"></i></div>
-              <span>แนบรูปภาพประกอบ</span>
+              <span>แนบรูปภาพประกอบ (ย่อขนาดภาพอัตโนมัติ)</span>
             </div>
             
             <div class="mb-3">
               <div class="drop-zone-modern" onclick="document.getElementById('imageFiles').click()">
                 <i class="fa-solid fa-cloud-arrow-up fa-2x text-emerald-600 mb-2"></i>
                 <div class="fw-bold text-dark fs-6">คลิกเพื่อเลือกรูปภาพ หรือลากไฟล์มาวางที่นี่</div>
-                <div class="text-muted small">เลือกกี่รูปก็ได้ (ไม่จำกัดจำนวน)</div>
+                <div class="text-muted small">ระบบจะย่อขนาดให้อัตโนมัติ (อัปโหลดเร็ว ไม่สะดุด)</div>
                 <input type="file" id="imageFiles" accept="image/*" multiple style="display: none;">
               </div>
               <div class="d-flex flex-wrap gap-2 mt-3" id="previewGrid"></div>
@@ -411,7 +400,7 @@
               </div>
               <div class="col-md-6">
                 <button type="button" class="btn btn-gradient-emerald w-100 py-3 fw-bold rounded-3" onclick="submitFormWithAction(true)">
-                  <i class="fa-solid fa-paper-plane me-2"></i>บันทึกและส่ง LINE
+                  <i class="fa-solid fa-paper-plane me-2"></i>บันทึกและส่ง LINE Notify
                 </button>
               </div>
             </div>
@@ -430,7 +419,6 @@
       <!-- TAB 2: MODERN FEED & SEARCH -->
       <div class="tab-pane fade" id="list-pane" role="tabpanel">
         
-        <!-- Search Controls -->
         <div class="card card-modern p-3 mb-3">
           <div class="input-group mb-2">
             <span class="input-group-text bg-white border-end-0 text-muted"><i class="fa-solid fa-magnifying-glass"></i></span>
@@ -438,7 +426,6 @@
             <button class="btn btn-gradient-emerald px-3" onclick="loadReportData()"><i class="fa-solid fa-rotate-right me-1"></i>รีเฟรช</button>
           </div>
 
-          <!-- Category Filter Pills -->
           <div class="tag-pills-scroll mt-2">
             <span class="tag-pill-item active" onclick="filterByDept('ทั้งหมด', this)">ทั้งหมด</span>
             <span class="tag-pill-item" onclick="filterByDept('สำนักปลัด', this)">สำนักปลัด</span>
@@ -460,7 +447,6 @@
     </div>
   </div>
 
-  <!-- Drawer Modal Container -->
   <div class="modal fade" id="detailModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content drawer-modal-content p-2">
@@ -478,7 +464,7 @@
 
   <script>
     // ================= WEB APP API ENDPOINT =================
-    const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxEhfgNo0F1uipOcVAuLDkGyaErCyTwVhdwJBfKJDXp0ffy7xh0LkixoDTGvatT5pIm/exec";
+    const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycby94uvMMT7hYMx4tQNdUhfWulN_qA3kognpaZqd4zz4eRH7Yyw4eFOwHwsT7Bjdne8/exec";
     // ========================================================
 
     const VILLAGE_DATABASE = {
@@ -505,14 +491,23 @@
     };
 
     function fetchStaffList() {
-      fetch(`${GAS_WEB_APP_URL}?action=getStaffList`)
-        .then(res => res.json())
-        .then(res => {
-          if (res.success) {
-            populateStaffDropdown(res.data);
-          }
-        })
-        .catch(err => console.error("Error fetching staff list:", err));
+      fetch(`${GAS_WEB_APP_URL}?action=getStaffList`, {
+        method: "GET",
+        redirect: "follow"
+      })
+      .then(res => res.text())
+      .then(text => {
+        if (text.startsWith("<")) {
+          console.error("Server returned HTML response:", text);
+          Swal.fire("ข้อผิดพลาด API Access", "ระบบส่งกลับเป็นหน้า HTML โปรดเช็กการตั้งค่าสิทธิ์ 'ผู้มีสิทธิ์เข้าถึง = ทุกคน' ใน Apps Script", "error");
+          return;
+        }
+        const res = JSON.parse(text);
+        if (res.success) {
+          populateStaffDropdown(res.data);
+        }
+      })
+      .catch(err => console.error("Error fetching staff list:", err));
     }
 
     function setDefaultDateTime() {
@@ -635,6 +630,47 @@
       renderPreviews();
     }
 
+    function compressImage(file, maxDimension = 1280, quality = 0.68) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          const img = new Image();
+          img.onload = () => {
+            let width = img.width;
+            let height = img.height;
+
+            if (width > maxDimension || height > maxDimension) {
+              if (width > height) {
+                height = Math.round((height * maxDimension) / width);
+                width = maxDimension;
+              } else {
+                width = Math.round((width * maxDimension) / height);
+                height = maxDimension;
+              }
+            }
+
+            const canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, width, height);
+
+            const base64Data = canvas.toDataURL('image/jpeg', quality);
+            resolve({
+              fileName: file.name.replace(/\.[^/.]+$/, "") + ".jpg",
+              mimeType: "image/jpeg",
+              base64: base64Data.split(',')[1]
+            });
+          };
+          img.onerror = (err) => reject(err);
+          img.src = event.target.result;
+        };
+        reader.onerror = (err) => reject(err);
+        reader.readAsDataURL(file);
+      });
+    }
+
     async function submitFormWithAction(shouldSendLine) {
       const form = document.getElementById('workForm');
       if (!form.checkValidity()) {
@@ -643,13 +679,6 @@
       }
 
       const isEdit = document.getElementById('rowIndex').value !== "";
-
-      let totalSize = 0;
-      for (let f of selectedFiles) { totalSize += f.size; }
-      if (totalSize > 15 * 1024 * 1024) {
-        Swal.fire('ขนาดไฟล์รวมใหญ่เกินไป', 'ขนาดไฟล์รวมกันต้องไม่เกิน 15 MB กรุณาลดจำนวนหรือขนาดรูปภาพ', 'warning');
-        return;
-      }
 
       const selectedIdVal = staffTomSelect ? staffTomSelect.getValue() : document.getElementById('staffSelect').value;
       if (!selectedIdVal) {
@@ -679,37 +708,38 @@
       const selectedId = parseInt(selectedIdVal);
       const staff = staffData.find(s => s.id === selectedId);
 
-      let loadingTitle = 'กำลังบันทึกข้อมูล...';
+      let loadingTitle = 'กำลังบีบอัดภาพและบันทึกข้อมูล...';
       if (isEdit) {
         loadingTitle = 'กำลังอัปเดตข้อมูล...';
       } else if (shouldSendLine) {
-        loadingTitle = 'กำลังบันทึกและส่ง LINE...';
+        loadingTitle = 'กำลังย่อภาพ และส่ง LINE Notify...';
       }
 
       Swal.fire({
         title: loadingTitle,
-        text: 'โปรดรอสักครู่ ระบบกำลังประมวลผลข้อมูล',
+        text: 'โปรดรอสักครู่ ระบบกำลังปรับย่อขนาดภาพให้อัปโหลดเร็วที่สุด',
         allowOutsideClick: false,
         didOpen: () => { Swal.showLoading(); }
       });
 
       let fileDataArray = [];
       if (selectedFiles.length > 0) {
-        const filePromises = selectedFiles.map(file => {
-          return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.onload = () => resolve({ fileName: file.name, mimeType: file.type, base64: reader.result.split(',')[1] });
-            reader.onerror = error => reject(error);
-            reader.readAsDataURL(file);
-          });
-        });
-        fileDataArray = await Promise.all(filePromises);
+        try {
+          const compressPromises = selectedFiles.map(file => compressImage(file, 1280, 0.68));
+          fileDataArray = await Promise.all(compressPromises);
+        } catch (compErr) {
+          Swal.fire('เกิดข้อผิดพลาดในการย่อภาพ', compErr.toString(), 'error');
+          return;
+        }
       }
+
+      const rawExistingUrls = document.getElementById('existingImageUrls').value;
+      const existingUrlsArray = rawExistingUrls ? rawExistingUrls.split(',') : [];
 
       const formData = {
         rowIndex: document.getElementById('rowIndex').value,
         existingFolderUrl: document.getElementById('existingFolderUrl').value,
-        existingImageUrls: document.getElementById('existingImageUrls').value ? document.getElementById('existingImageUrls').value.split(',') : [],
+        existingImageUrls: existingUrlsArray,
         workDate: document.getElementById('workDate').value,
         reporter: staff.name,
         department: staff.department,
@@ -725,8 +755,13 @@
         method: "POST",
         body: JSON.stringify({ action: "processForm", formData: formData })
       })
-      .then(res => res.json())
-      .then(response => {
+      .then(res => res.text())
+      .then(text => {
+        if (text.startsWith("<")) {
+          Swal.fire('เกิดข้อผิดพลาด API', 'ระบบส่งกลับเป็นหน้า HTML โปรดตรวจสอบการ Deploy สิทธิ์เป็น Everyone บน GAS', 'error');
+          return;
+        }
+        const response = JSON.parse(text);
         if (response.success) {
           if (response.isEdit) {
             Swal.fire({
@@ -738,9 +773,10 @@
             resetForm();
             document.getElementById('list-tab').click();
           } else {
+            const iconType = (response.sendLine === false && shouldSendLine) ? 'warning' : 'success';
             Swal.fire({
-              icon: 'success',
-              title: 'บันทึกสำเร็จ!',
+              icon: iconType,
+              title: (response.sendLine === false && shouldSendLine) ? 'บันทึกสำเร็จ (LINE ไม่เด้ง)' : 'บันทึกสำเร็จ!',
               text: response.message,
               showCancelButton: true,
               confirmButtonColor: '#059669',
@@ -788,21 +824,30 @@
       document.getElementById('reportListContainer').innerHTML = '';
       document.getElementById('searchInput').value = '';
 
-      fetch(`${GAS_WEB_APP_URL}?action=getReportData`)
-        .then(res => res.json())
-        .then(res => {
-          if (res.success) {
-            reportDataGlobal = res.data;
-            renderReportCards(res.data);
-          } else {
-            document.getElementById('loadingSpinner').style.display = 'none';
-            Swal.fire('Error', 'ไม่สามารถโหลดข้อมูลได้: ' + res.message, 'error');
-          }
-        })
-        .catch(err => {
-          document.getElementById('loadingSpinner').style.display = 'none';
-          Swal.fire('Error', 'ไม่สามารถโหลดข้อมูลได้: ' + err, 'error');
-        });
+      fetch(`${GAS_WEB_APP_URL}?action=getReportData`, {
+        method: "GET",
+        redirect: "follow"
+      })
+      .then(res => res.text())
+      .then(text => {
+        document.getElementById('loadingSpinner').style.display = 'none';
+        if (text.startsWith("<")) {
+          console.error("Server HTML Response:", text);
+          Swal.fire("ข้อผิดพลาด API Access", "ไม่สามารถดึงข้อมูลได้ โปรดตรวจสอบการตั้งค่าสิทธิ์ Web App บน Google Apps Script", "error");
+          return;
+        }
+        const res = JSON.parse(text);
+        if (res.success) {
+          reportDataGlobal = res.data;
+          renderReportCards(res.data);
+        } else {
+          Swal.fire('Error', 'ไม่สามารถโหลดข้อมูลได้: ' + res.message, 'error');
+        }
+      })
+      .catch(err => {
+        document.getElementById('loadingSpinner').style.display = 'none';
+        Swal.fire('Error', 'ไม่สามารถโหลดข้อมูลได้: ' + err, 'error');
+      });
     }
 
     function filterByDept(deptKeyword, element) {
@@ -987,8 +1032,13 @@
             method: "POST",
             body: JSON.stringify({ action: "verifyAdminPassword", password: password })
           })
-          .then(res => res.json())
-          .then(res => {
+          .then(res => res.text())
+          .then(text => {
+            if (text.startsWith("<")) {
+              Swal.showValidationMessage('ข้อผิดพลาด API: ระบบตอบกลับเป็น HTML');
+              return false;
+            }
+            const res = JSON.parse(text);
             if (res.success && res.isValid) {
               return password;
             } else {
@@ -1086,8 +1136,13 @@
             method: "POST",
             body: JSON.stringify({ action: "deleteRecord", rowIndex: rowIndex, adminPassword: adminPass })
           })
-          .then(res => res.json())
-          .then(res => {
+          .then(res => res.text())
+          .then(text => {
+            if (text.startsWith("<")) {
+              Swal.fire('ข้อผิดพลาด API', 'ระบบส่งกลับเป็น HTML โปรดเช็กสิทธิ์ Web App', 'error');
+              return;
+            }
+            const res = JSON.parse(text);
             if (res.success) {
               Swal.fire('ลบสำเร็จ!', res.message, 'success');
               loadReportData();
