@@ -43,7 +43,7 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* Hero Glassmorphic Gradient Header Card */
+    /* Hero Glassmorphic Header Card */
     .header-hero-card {
       background: linear-gradient(135deg, #059669 0%, #0d9488 100%);
       border-radius: 24px;
@@ -645,7 +645,7 @@
       renderPreviews();
     }
 
-    // CLIENT-SIDE CANVAS COMPRESSION: บีบอัดภาพให้อยู่ในระดับ ~80-180 KB ต่อรูป
+    // CLIENT-SIDE CANVAS COMPRESSION: ย่อขนาดภาพเหลือ 80-180 KB ต่อรูป
     function compressImage(file, maxDimension = 1280, quality = 0.68) {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -790,10 +790,10 @@
             resetForm();
             document.getElementById('list-tab').click();
           } else {
-            const iconType = response.sendLine === false && shouldSendLine ? 'warning' : 'success';
+            const iconType = (response.sendLine === false && shouldSendLine) ? 'warning' : 'success';
             Swal.fire({
               icon: iconType,
-              title: response.sendLine === false && shouldSendLine ? 'บันทึกสำเร็จ (LINE ไม่เด้ง)' : 'บันทึกสำเร็จ!',
+              title: (response.sendLine === false && shouldSendLine) ? 'บันทึกสำเร็จ (LINE ไม่เด้ง)' : 'บันทึกสำเร็จ!',
               text: response.message,
               showCancelButton: true,
               confirmButtonColor: '#059669',
